@@ -1,7 +1,7 @@
 # package-dependency-networks
 Supplementary material for MSR2017 paper Structure and Evolution of Package Dependency Networks
 
-## For each language, we two files
+## Data files
 
  - cleaned_JS_dependency_final.csv - List all packages and their dependencies. For each package `(project_github, project_version, project_ver)` it specifies that it had a dependency `(adopted_name, adopted_ver)`.
    - `project_github` - github repository name. For published packages, it is the same as the project name
