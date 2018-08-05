@@ -1,0 +1,11 @@
+*.pyc
+*.exe
+*.o
+code/depnetevo/.settings/
+code/Snap-3.0/
+code/working/experiments/
+code/working/*.csv
+*.cproject
+*.project
+scripts/.ipynb_checkpoints/
+code/Snap-3.0.zip

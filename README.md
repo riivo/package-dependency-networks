@@ -43,3 +43,6 @@ mimosa-jshint,mimosa-jshint,1.1.2,1393885960,1
 ```
 
 
+## Code
+ * `code` - The code used to run experiments on collected data for thje paper. The code does not incorporate data collection, filtering and cleaning code. See more detailed README in the `code` folder
+ * `script` - Simple example notebook that demonstrates data usage with Ruby and vulnerable Rack library version adoption. 
