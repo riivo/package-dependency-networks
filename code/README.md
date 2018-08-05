@@ -19,3 +19,4 @@
 # Steps to invoke
  * Clone the repo as is
  * Change working directory to this directory and run run_experiments.sh script that invokes experiments and runs the scripts that generates figures and stats used in the paper
+ * The output figures are stored in working/figures and tables in working/tables

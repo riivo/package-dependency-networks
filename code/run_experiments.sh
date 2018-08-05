@@ -3,9 +3,9 @@ export OMP_NUM_THREADS=4
 
 # Generate graph file
 mkdir -p ./working/
-#python network_model.py Rust
-#python network_model.py Ruby
-#python network_model.py JS
+python network_model.py Rust
+python network_model.py Ruby
+python network_model.py JS
 
 # Run experiments, track evolution, size, vulnerability
 mkdir -p ./working/experiments
@@ -34,4 +34,11 @@ python data_analysis_for_paper_stats.py RubyMerged > ./working/tables/stats_ruby
 
 #Figures and tables
 mkdir -p ./working/figures/
+# Most of the figures in paper
 python data_analysis_for_paper.py ALL
+
+#Plot WCC size
+python data_analysis_wccs.py
+
+# Version schemes stats
+python data_analysis_versioning_schemes.py

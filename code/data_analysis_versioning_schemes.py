@@ -1,30 +1,13 @@
-#
-
 import re
-
 import pandas as pd
 import numpy as np
 from collections import Counter
 import seaborn as sns
-
+import config
 
 
 reg_exact = re.compile(r'^[\=]{0,1}\d+(\.\d+)*([\-]{1}[a-zA-Z0-9]*)?')
 reg_semantic = re.compile(r'^[~\^\=\>\<\s]{1,2}\d+(\.\d+)*([\-]{1}[a-zA-Z0-9]*)?')
-
-
-#gem dependncy notation popularity, the empty row is missing
-"""
-kikas@alligaator:/gfs22/biit/home/kikas/projects$ cat rubygems_dump_left.csv  | awk -F";" '{print $3}'    | awk '{print $1}' | grep -v -e '^$' | sort -S1G | uniq -c | sort -n
-    931 !=
-   3165 <=
-  16240 >
-  40157 <
- 180582 =
-1357845 ~>
-2095337 >=
-
-"""
 
 def version_type(ver_):
     ver = ver_.strip().replace(" ", "")
@@ -98,20 +81,17 @@ def extract_versions(dfa):
     dfa.loc[:,"version_type"] = fixed
     return fixed
 
-
-
-
 if __name__ == "__main__":
     opts = {"na_filter": False}
     # %%
 
-    titles = [("Rust",None), ("JSCl",0),("JSCl",1), ("RubyMergedCl", 0),("RubyMergedCl", 1)]
+    titles = [("Rust",None), ("JS",0),("JS",1), ("Ruby", 0),("Ruby", 1)]
     projs = []
 
     for lang_ in titles:
         print lang_
         lang = lang_[0]
-        df_fixed = pd.read_csv("../data/working/fixed_adopted_{0}_meta.csv".format(lang), sep="\t", **opts)
+        df_fixed = pd.read_csv(config.WORKING_DATA+"fixed_adopted_{0}_meta.csv".format(lang), sep="\t", **opts)
         df_fixed.loc[pd.isnull(df_fixed.orig_ver_string), "orig_ver_string"] = ""
         if lang_[1] in [0,1]:
             df_fixed = df_fixed[df_fixed.is_published == lang_[1]]
@@ -126,13 +106,6 @@ if __name__ == "__main__":
         versions.append(ver_)
         print b.query("version_type == 'range'").orig_ver_string.value_counts()
 
-
-
-
-
-
-
-
     counters = [Counter(c) for c in versions]
 
     rows = []
@@ -145,18 +118,8 @@ if __name__ == "__main__":
 
 
     versioning_use = pd.DataFrame.from_records(rows, columns=["Ecosystem", "Type", "Count", "Percentage"])
-
     tbl = pd.pivot_table(versioning_use,values="Percentage",index="Ecosystem", columns="Type",aggfunc=np.sum).fillna(0)
-
     tbl2 = pd.pivot_table(versioning_use,values="Count",index="Ecosystem", columns="Type",aggfunc=np.sum).fillna(0)
-
-    tbl2.to_csv("../paper/tables/version_notation_stats.csv")
-
-
-    #pd.options.display.float_format = '{:,.3f}'.format
+    tbl2.to_csv(config.TABLES+"version_notation_stats.csv")
     print tbl
-
     print tbl.to_latex(float_format="%.3f")
-    #cm = sns.light_palette("blue", as_cmap=True)
-
-    #tbl.style.background_gradient(cmap=cm)

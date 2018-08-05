@@ -1,13 +1,11 @@
-import figure_params
 import pandas as pd
 import glob as glob
 from matplotlib import pyplot as plt
-
-#%%
+import config
 
 def read_wcc(lang, gtype):
-    folder = "../data/results_wcc/"
-    files = glob.glob(folder+"wcc.wcc-{0}-{1}Exp-ts-*.tab".format(gtype,lang))
+    folder = config.EXPERIMENTS_DATA
+    files = glob.glob(folder+"wcc.wcc-{0}-{1}-ts-*.tab".format(gtype,lang))
     res = []
     for f in files:
         ts = int(f.split("-")[-1][:-4])
@@ -26,8 +24,8 @@ def last(df):
     
 for gtype in ["vernode", "regular"]:
     dfr  = read_wcc("Rust",gtype)
-    dfjs  = read_wcc("JSCl",gtype)
-    dfruby  = read_wcc("RubyCl",gtype)
+    dfjs  = read_wcc("JS",gtype)
+    dfruby  = read_wcc("Ruby",gtype)
     
     plt.figure()
     plt.plot(dfr.date, dfr.ratio, label = "Rust {0:.4f}".format(last(dfr)))
@@ -37,7 +35,6 @@ for gtype in ["vernode", "regular"]:
     plt.ylabel("Fraction of projects in LWCC")
     plt.legend(loc="best")
     plt.tight_layout(0.1)
-    figure_params.sns.despine()
-    plt.savefig("../paper/figures/wccs/"+gtype+".pdf")
+    plt.savefig(config.FIGURES+"wccs_"+gtype+".pdf")
         
     
