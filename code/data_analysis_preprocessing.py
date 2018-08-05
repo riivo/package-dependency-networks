@@ -9,6 +9,7 @@ Created on Thu Aug 04 14:30:28 2016
 import pandas as pd
 import glob 
 import gc
+import config
 
 def collect_results(str1, ver=False):
     results = []
@@ -36,23 +37,23 @@ def collect_results(str1, ver=False):
 if __name__ == "__main__":
     for lang in ["Rust", "JS", "Ruby"]:
         print lang
-        regular_rev = collect_results("../working/experiments/results-{0}-ts-*rev.tsv".format(lang))
-        regular_rev.to_csv("../working/results/generated-regular-bfs-{0}.csv".format(lang))
+        regular_rev = collect_results(config.EXPERIMENTS_DATA+"results-{0}-ts-*rev.tsv".format(lang))
+        regular_rev.to_csv(config.GENERATED_DATA+"generated-regular-bfs-{0}.csv".format(lang))
         regular_rev = None
         gc.collect()
         print "1"
-        vernode_rev = collect_results("../working/experiments/results-ver-{0}-ts-*rev.tsv".format(lang),True)
-        vernode_rev.to_csv("../working/results/generated-vernode-bfs-{0}.csv".format(lang))
+        vernode_rev = collect_results(config.EXPERIMENTS_DATA+"results-ver-{0}-ts-*rev.tsv".format(lang),True)
+        vernode_rev.to_csv(config.GENERATED_DATA+"generated-vernode-bfs-{0}.csv".format(lang))
         vernode_rev = None
         gc.collect()
         print "2"
-        regular = collect_results("../working/experiments/results-{0}-ts-*-orig.tsv".format(lang))
-        regular.to_csv("../working/results/generated-regular-simulation-{0}.csv".format(lang))
+        regular = collect_results(config.EXPERIMENTS_DATA+"results-{0}-ts-*-orig.tsv".format(lang))
+        regular.to_csv(config.GENERATED_DATA+"generated-regular-simulation-{0}.csv".format(lang))
         regular = None
         gc.collect()
         print "3"
-        vernode = collect_results("../working/experiments/results-ver-{0}-ts-*-orig.tsv".format(lang),True)
-        vernode.to_csv("../working/results/generated-vernode-simulation-{0}.csv".format(lang))
+        vernode = collect_results(config.EXPERIMENTS_DATA+"results-ver-{0}-ts-*-orig.tsv".format(lang),True)
+        vernode.to_csv(config.GENERATED_DATA+"generated-vernode-simulation-{0}.csv".format(lang))
         vernode = None
         gc.collect()
         print "4"
