@@ -26,12 +26,12 @@ python data_analysis_transtive_overlap.py Rust
 python data_analysis_transtive_overlap.py JS
 python data_analysis_transtive_overlap.py Ruby
 
-# Basic stats 
+# Basic stats used in tables
 mkdir -p ./working/tables/
 python data_analysis_for_paper_stats.py Rust > ./working/tables/stats_rust.txt
 python data_analysis_for_paper_stats.py JS > ./working/tables/stats_js.txt
 python data_analysis_for_paper_stats.py RubyMerged > ./working/tables/stats_ruby.txt
 
-#Figure
+#Figures and tables
 mkdir -p ./working/figures/
 python data_analysis_for_paper.py ALL
