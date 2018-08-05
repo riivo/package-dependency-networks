@@ -1,0 +1,5 @@
+semnatic_version==2.6.0
+joblib==0.11
+pytz==2018.4
+networkx==2.1
+pandas==0.22.0
